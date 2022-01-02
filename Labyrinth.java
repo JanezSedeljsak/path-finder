@@ -14,12 +14,13 @@ class Point {
 }
 
 public class Labyrinth {
-    public ArrayList<ArrayList<Integer>> data;
+    public Integer[][] data;
     public ArrayList<Point> treasures;
     public Point start, end;
 
-    public static Labyrinth labyrinthFromFile(String fileName) {
-        Labyrinth lab = new Labyrinth(new ArrayList<>());
+    public static Labyrinth fromFile(String fileName) {
+        Labyrinth lab = new Labyrinth();
+        ArrayList<Integer[]> tmpData = new ArrayList<>();
 
         try {
             int rowNum = 0;
@@ -27,10 +28,10 @@ public class Labyrinth {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             while ((line = reader.readLine()) != null) {
                 String[] splicedLine = line.split(",");
-                ArrayList<Integer> tmpRow = new ArrayList<>();
+                Integer[] tmpRow = new Integer[splicedLine.length];
                 for (int i = 0; i < splicedLine.length; i++) {
                     int num = Integer.parseInt(splicedLine[i]);
-                    tmpRow.add(num);
+                    tmpRow[i] = num;
 
                     switch (num) {
                         case -2:
@@ -47,7 +48,7 @@ public class Labyrinth {
                     }
                 }
     
-                lab.addRow(tmpRow);
+                tmpData.add(tmpRow);
                 rowNum++;
             }
     
@@ -56,17 +57,28 @@ public class Labyrinth {
             System.out.printf("Error while reading: %s\n", ex.toString());
         }
 
+        // if data is loaded convert from ArrayList<> -> Array
+        int len = tmpData.size();
+        if (len > 0) {
+            int rowLen = tmpData.get(0).length;
+            Integer[][] finalData = new Integer[len][rowLen];
+            for (int i = 0; i < finalData.length; i++) {
+                finalData[i] = tmpData.get(i);
+            }
+
+            lab.data = finalData;
+        }
+
         return lab;
     }
 
-    public Labyrinth(ArrayList<ArrayList<Integer>> data) {
-        this.data = data;
+    public Labyrinth() {
         this.treasures = new ArrayList<>();
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (ArrayList<Integer> row: data) {
+        for (Integer[] row: data) {
             String seperator = "";
             for (Integer cell: row) {
                 sb.append(seperator + cell);
@@ -76,10 +88,6 @@ public class Labyrinth {
         }
 
         return sb.toString();
-    }
-
-    public void addRow(ArrayList<Integer> row) {
-        this.data.add(row);
     }
 
     public void setStart(int x, int y) {
