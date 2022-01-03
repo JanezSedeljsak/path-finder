@@ -14,13 +14,14 @@ class Point {
 }
 
 public class Labyrinth {
-    public Integer[][] data;
+    public int[][] data;
+    int h, w;
     public ArrayList<Point> treasures;
     public Point start, end;
 
     public static Labyrinth fromFile(String fileName) {
         Labyrinth lab = new Labyrinth();
-        ArrayList<Integer[]> tmpData = new ArrayList<>();
+        ArrayList<int[]> tmpData = new ArrayList<>();
 
         try {
             int rowNum = 0;
@@ -28,7 +29,7 @@ public class Labyrinth {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             while ((line = reader.readLine()) != null) {
                 String[] splicedLine = line.split(",");
-                Integer[] tmpRow = new Integer[splicedLine.length];
+                int[] tmpRow = new int[splicedLine.length];
                 for (int i = 0; i < splicedLine.length; i++) {
                     int num = Integer.parseInt(splicedLine[i]);
                     tmpRow[i] = num;
@@ -61,12 +62,12 @@ public class Labyrinth {
         int len = tmpData.size();
         if (len > 0) {
             int rowLen = tmpData.get(0).length;
-            Integer[][] finalData = new Integer[len][rowLen];
+            int[][] finalData = new int[len][rowLen];
             for (int i = 0; i < finalData.length; i++) {
                 finalData[i] = tmpData.get(i);
             }
 
-            lab.data = finalData;
+            lab.setData(finalData);
         }
 
         return lab;
@@ -74,13 +75,15 @@ public class Labyrinth {
 
     public Labyrinth() {
         this.treasures = new ArrayList<>();
+        this.h = 0;
+        this.w = 0;
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Integer[] row: data) {
+        for (int[] row: data) {
             String seperator = "";
-            for (Integer cell: row) {
+            for (int cell: row) {
                 sb.append(seperator + cell);
                 seperator = " ";
             }
@@ -88,6 +91,20 @@ public class Labyrinth {
         }
 
         return sb.toString();
+    }
+
+    public boolean isValidMove(int x, int y) {
+        if (x < 0 || x >= w) return false;
+        if (y < 0 || y >= h) return false;
+        return data[y][x] != -1;
+    }
+
+    public void setData(int[][] data) {
+        this.data = data;
+        if (data.length > 0) {
+            this.h = data.length;
+            this.w = data[0].length;
+        }
     }
 
     public void setStart(int x, int y) {
