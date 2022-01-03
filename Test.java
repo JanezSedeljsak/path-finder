@@ -7,6 +7,8 @@ public class Test {
         System.out.println(lab.start);
         System.out.println(lab.end);
 
+        boolean[][] foundPath = DFS.search(lab);
+        Labyrinth.path = foundPath;
         // če hočeš da ti izriše graf
         lab.setDraw(true);
     }
