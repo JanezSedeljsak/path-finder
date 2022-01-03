@@ -124,28 +124,19 @@ public class Labyrinth extends JFrame {
                 int cellX = cellWidth * column;
                 int cellY = cellHeight * row;
 
-                switch (data[row][column]) {
-                    case -1:
-                        g.setColor(Color.GRAY);
-                        break;
-                    case -2:
-                        g.setColor(Color.BLUE);
-                        break;
-                    case -4:
-                        g.setColor(Color.GREEN);
-                        break;
-                    case -3:
-                        g.setColor(Color.ORANGE);
-                        break;
-                    default:
-                        g.setColor(Color.WHITE);
-                        if (path != null && path[row][column]) {
-                            g.setColor(Color.RED);
-                        }
-                        break;
-                }
-
+                int cellType = data[row][column];
+                g.setColor(cellType == -1 ? Color.GRAY : ((path != null && path[row][column]) ? Color.RED : Color.WHITE));
                 g.fillRect(cellX, cellY, cellWidth, cellHeight);
+
+                if (cellType < -1) {
+                    switch (cellType) {
+                        case -2: g.setColor(Color.BLUE); break;
+                        case -3: g.setColor(Color.ORANGE); break;
+                        case -4: g.setColor(Color.GREEN); break;
+                    }
+
+                    g.fillOval(cellX, cellY, cellWidth, cellHeight);
+                }
             }
         }
     }
@@ -156,6 +147,7 @@ public class Labyrinth extends JFrame {
         if (!prev && isDraw) {
             setSize(720, 640);
             setVisible(true);
+            setTitle("Gray - wall, White - hallway, Red - path, Blue - start, Green - finish, Orange - reward");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             getContentPane().setBackground(Color.WHITE);
         }
