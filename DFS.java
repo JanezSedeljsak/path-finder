@@ -3,27 +3,29 @@ import java.util.*;
 public class DFS {
     static Point dfsStartPoint;
 
+    public static boolean[][] addNewMarked(boolean[][] list1, boolean[][] list2) {
+        for (int i = 0; i < list1.length; i++) {
+            for (int j = 0, len = list1[0].length; j < len; j++) {
+                list1[i][j] = list1[i][j] || list2[i][j];
+            }
+        }
+
+        return list1;
+    }
+
     public static boolean[][] fullSearch(Labyrinth lab) {
         boolean[][] marked = new boolean[lab.h][lab.w];
         ArrayList<Point> goals = lab.treasures;
         dfsStartPoint = lab.start;
 
         while (goals.size() > 0) {
-            boolean[][] curMarked = search(lab, dfsStartPoint, goals);
-            for (int i = 0; i < lab.h; i++) {
-                for (int j = 0; j < lab.w; j++) {
-                    marked[i][j] = marked[i][j] || curMarked[i][j];
-                }
-            }
+            boolean[][] newMarked = search(lab, dfsStartPoint, goals);
+            marked = addNewMarked(marked, newMarked);
         }
 
         goals.add(lab.end);
-        boolean[][] curMarked = search(lab, dfsStartPoint, goals);
-        for (int i = 0; i < lab.h; i++) {
-            for (int j = 0; j < lab.w; j++) {
-                marked[i][j] = marked[i][j] || curMarked[i][j];
-            }
-        }
+        boolean[][] newMarked = search(lab, dfsStartPoint, goals);
+        marked = addNewMarked(marked, newMarked);
 
         return marked;
     }
@@ -44,9 +46,9 @@ public class DFS {
             Point curNode = stack.peek();
 
             if (goals.contains(curNode)) {
-                // remove treasure after visited
                 dfsStartPoint = curNode;
                 goals.remove(curNode);
+
                 System.out.println("Resitev DFS v vozliscu " + curNode);
                 System.out.print("Pot: " + curNode);
 
@@ -61,7 +63,6 @@ public class DFS {
                 return marked;
             }
 
-            // najdi neobiskanega naslednjika
             boolean found = false;
             for (Point move : Point.moveOptions) {
                 Point nextNode = new Point(curNode.x + move.x, curNode.y + move.y);
