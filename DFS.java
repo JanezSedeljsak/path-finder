@@ -33,7 +33,6 @@ public class DFS {
     public static boolean[][] search(Labyrinth lab, Point start, ArrayList<Point> goals) {
         boolean[][] marked = new boolean[lab.h][lab.w];
         HashMap<Point, Point> from = new HashMap<>();
-
         Stack<Point> stack = new Stack<>();
 
         from.put(start, null);
