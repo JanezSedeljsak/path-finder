@@ -100,6 +100,8 @@ public class Labyrinth extends JFrame {
                 if (Solution.foundPath[row][column] > 0) {
                     g.setColor(Color.RED);
                     g.fillOval(cellX, cellY, cellWidth, cellHeight);
+                    g.setColor(Color.BLACK);
+                    g.drawString(""+Solution.foundPath[row][column], cellX + (int)(cellWidth*.35), cellY + (int)(cellHeight*.65));
                 }
 
                 if (cellType < -1) {
