@@ -21,7 +21,7 @@ public class Solution {
                 visitedCount += visited[i][j] ? 1 : 0;
                 pathLength += foundPath[i][j];
                 if (lab.data[i][j] > 0) {
-                    pathPrice += foundPath[i][j] * pathPrice;
+                    pathPrice += foundPath[i][j] * lab.data[i][j];
                 }
             }
         }
