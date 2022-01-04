@@ -1,4 +1,0 @@
-algorithm, visitedCount, pathLength, pathPrice
-BFS, 1799, 630, 1560
-DFS, 1183, 97, 274
-IDDFS, 1117, 97, 274

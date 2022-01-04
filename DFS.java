@@ -26,7 +26,7 @@ public class DFS {
         marked[start.y][start.x] = true;
         stack.push(start);
 
-        System.out.println("Polagam na sklad vozlisce " + start);
+        // System.out.println("Polagam na sklad vozlisce " + start);
 
         while (!stack.isEmpty()) {
             Point curNode = stack.peek();
@@ -36,14 +36,14 @@ public class DFS {
                 dfsStartPoint = curNode;
                 goals.remove(curNode);
 
-                System.out.println("Resitev DFS v vozliscu " + curNode);
-                System.out.print("Pot: " + curNode);
+                // System.out.println("Resitev DFS v vozliscu " + curNode);
+                // System.out.print("Pot: " + curNode);
 
                 while (true) {
                     Solution.foundPath[curNode.y][curNode.x]++;
                     curNode = from.get(curNode);
                     if (curNode != null) {
-                        System.out.print(" <-- " + curNode);
+                        // System.out.print(" <-- " + curNode);
                         lab.drawCircleSTD(curNode.x, curNode.y);
                     }
                     else
@@ -62,7 +62,7 @@ public class DFS {
                     from.put(nextNode, curNode);
                     stack.push(nextNode);
 
-                    System.out.println("Polagam na sklad vozlisce " + nextNode);
+                    // System.out.println("Polagam na sklad vozlisce " + nextNode);
                     found = true;
                     break;
                 }
@@ -70,7 +70,7 @@ public class DFS {
 
             if (!found) {
                 stack.pop();
-                System.out.println("Odstranjum s sklada vozlisce " + curNode);
+                // System.out.println("Odstranjum s sklada vozlisce " + curNode);
             }
         }
 

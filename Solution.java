@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 public class Solution {
@@ -29,30 +28,34 @@ public class Solution {
         return String.format("%s, %d, %d, %d\n", algorithm, visitedCount, pathLength, pathPrice);
     }
 
-    public static void generateCSV(int labryinthNum) throws Exception {
-        String inFile = String.format("./labyrinths/labyrinth_%d.txt", labryinthNum);
-        String outFile = String.format("./results/labyrinth_%d.txt", labryinthNum);
-        PrintWriter writer = new PrintWriter(outFile, "UTF-8");
-        writer.write(csvHeader());
-    
-        Labyrinth lab = new Labyrinth();
-        lab.loadDataFromFile(inFile);
+    public static void generateCSV() throws Exception {
+        String[] algos = new String[] { "BFS", "DFS", "IDDFS" };
+        for (String algo : algos) {
+            String outFile = String.format("./results/%s.txt", algo);
+            PrintWriter writer = new PrintWriter(outFile, "UTF-8");
+            writer.write(csvHeader());
 
-        BFS.fullSearch(lab);
-        writer.write(csvRow(lab, "BFS"));
+            for (int i = 1; i <= 9; i++) {
+                Labyrinth lab = new Labyrinth();
+                lab.loadDataFromFile(String.format("./labyrinths/labyrinth_%d.txt", i));
 
-        DFS.fullSearch(lab);
-        writer.write(csvRow(lab, "DFS"));
-
-        IDDFS.fullSearch(lab);
-        writer.write(csvRow(lab, "IDDFS"));
-
-        writer.close();
-    }
-
-    public static void generateCSVForEveryLabyrinth() throws Exception {
-        for (int i = 1; i <= 9; i++) {
-            generateCSV(i);
+                switch (algo) {
+                    case "BFS":
+                        BFS.fullSearch(lab);
+                        writer.write(csvRow(lab, "DFS"));
+                        break;
+                    case "DFS":
+                        DFS.fullSearch(lab);
+                        writer.write(csvRow(lab, "DFS"));
+                        break;
+                    case "IDDFS":
+                        IDDFS.fullSearch(lab);
+                        writer.write(csvRow(lab, "DFS"));
+                        break;
+                }
+                
+            }
+            writer.close();
         }
     }
 
