@@ -7,11 +7,11 @@ public class Test {
         lab.setAnimated(true);
 
         // v iskalnem algoritmu se rešitev shrani v Solution razred
-        IDDFS.fullSearch(lab);
+        DFS.fullSearch(lab);
 
         // če hočeš da ti izriše graf
         lab.setDraw(true);
 
-        // Solution.generateCSVForEveryLabyrinth();
+        // Solution.generateCSV();
     }
 }

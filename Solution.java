@@ -42,7 +42,7 @@ public class Solution {
                 switch (algo) {
                     case "BFS":
                         BFS.fullSearch(lab);
-                        writer.write(csvRow(lab, "DFS"));
+                        writer.write(csvRow(lab, "BFS"));
                         break;
                     case "DFS":
                         DFS.fullSearch(lab);
@@ -50,7 +50,7 @@ public class Solution {
                         break;
                     case "IDDFS":
                         IDDFS.fullSearch(lab);
-                        writer.write(csvRow(lab, "DFS"));
+                        writer.write(csvRow(lab, "IDDFS"));
                         break;
                 }
                 
