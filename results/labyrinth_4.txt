@@ -1,4 +1,4 @@
 algorithm, visitedCount, pathLength, pathPrice
-BFS, 1799, 636, 0
-DFS, 1205, 103, 0
-IDDFS, 1248, 103, 0
+BFS, 1799, 636, 2496
+DFS, 1205, 103, 404
+IDDFS, 1248, 103, 404

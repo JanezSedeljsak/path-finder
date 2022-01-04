@@ -30,6 +30,7 @@ public class DFS {
 
         while (!stack.isEmpty()) {
             Point curNode = stack.peek();
+            lab.drawRectSTD(curNode.x, curNode.y);
 
             if (goals.contains(curNode)) {
                 dfsStartPoint = curNode;
@@ -41,8 +42,10 @@ public class DFS {
                 while (true) {
                     Solution.foundPath[curNode.y][curNode.x]++;
                     curNode = from.get(curNode);
-                    if (curNode != null)
+                    if (curNode != null) {
                         System.out.print(" <-- " + curNode);
+                        lab.drawCircleSTD(curNode.x, curNode.y);
+                    }
                     else
                         break;
                 }

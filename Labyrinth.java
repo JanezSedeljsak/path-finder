@@ -9,6 +9,7 @@ public class Labyrinth extends JFrame {
     public ArrayList<Point> treasures;
     public Point start, end;
     public boolean isDraw = false;
+    public boolean isAnimated = false;
 
     public void loadDataFromFile(String fileName) {
         ArrayList<int[]> tmpData = new ArrayList<>();
@@ -65,6 +66,76 @@ public class Labyrinth extends JFrame {
         this.treasures = new ArrayList<>();
         this.h = 0;
         this.w = 0;
+    }
+
+    public void drawBackgroundSTD() {
+        if (isAnimated) {
+            StdDraw.setCanvasSize(720, 640);
+            StdDraw.clear(Color.GRAY);
+            StdDraw.setXscale(0, this.w - 1);
+            StdDraw.setYscale(this.h - 1, 0);
+            System.out.println(h + " " + w);
+
+            for (int x = 0; x < w; x++) {
+                for (int y = 0; y < h; y++) {
+                    int cellType = data[y][x];
+                    if (cellType != -1) {
+                        StdDraw.setPenColor(Color.WHITE);
+                        StdDraw.filledRectangle(x, y, 0.5, 0.5);
+
+                        switch (cellType) {
+                            case -2:
+                                StdDraw.setPenColor(Color.BLUE);
+                                StdDraw.filledCircle(x, y, 0.5);
+                                break;
+                            case -3:
+                                StdDraw.setPenColor(Color.ORANGE);
+                                StdDraw.filledCircle(x, y, 0.5);
+                                break;
+                            case -4:
+                                StdDraw.setPenColor(Color.GREEN);
+                                StdDraw.filledCircle(x, y, 0.5);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void drawRectSTD(int x, int y) {
+        if (isAnimated) {
+            if (Solution.foundPath[y][x] == 0) {
+                StdDraw.setPenColor(Color.PINK);
+                StdDraw.filledRectangle(x, y, 0.5, 0.5);
+
+                switch (data[y][x]) {
+                    case -2:
+                        StdDraw.setPenColor(Color.BLUE);
+                        StdDraw.filledCircle(x, y, 0.5);
+                        break;
+                    case -3:
+                        StdDraw.setPenColor(Color.ORANGE);
+                        StdDraw.filledCircle(x, y, 0.5);
+                        break;
+                    case -4:
+                        StdDraw.setPenColor(Color.GREEN);
+                        StdDraw.filledCircle(x, y, 0.5);
+                        break;
+                }
+            }
+        }
+    }
+
+    public void drawCircleSTD(int x, int y) {
+        if (isAnimated) {
+            if (this.data[y][x] > 0) {
+                StdDraw.setPenColor(Color.RED);
+                StdDraw.filledCircle(x, y, 0.5);
+                StdDraw.setPenColor(Color.BLACK);
+                StdDraw.text(x, y, (Solution.foundPath[y][x] + 1) + "");
+            }
+        }
     }
 
     public void paint(Graphics g) {
@@ -128,6 +199,11 @@ public class Labyrinth extends JFrame {
             getContentPane().setBackground(Color.WHITE);
         }
         this.repaint();
+    }
+
+    public void setAnimated(boolean isAnimated) {
+        this.isAnimated = isAnimated;
+        drawBackgroundSTD();
     }
 
     public String toString() {
