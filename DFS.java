@@ -13,22 +13,23 @@ public class DFS {
         return list1;
     }
 
-    public static boolean[][] fullSearch(Labyrinth lab) {
-        boolean[][] marked = new boolean[lab.h][lab.w];
-        ArrayList<Point> goals = lab.treasures;
-        dfsStartPoint = lab.start;
+    public static void fullSearch(Labyrinth lab) {
+        Solution.reset(lab.h, lab.w);
+		boolean[][] marked = new boolean[lab.h][lab.w];
+		ArrayList<Point> goals = lab.treasures;
+		dfsStartPoint = lab.start;
 
-        while (goals.size() > 0) {
-            boolean[][] newMarked = search(lab, dfsStartPoint, goals);
-            marked = addNewMarked(marked, newMarked);
-        }
+		while (goals.size() > 0) {
+			boolean[][] newMarked = search(lab, dfsStartPoint, goals);
+			marked = addNewMarked(marked, newMarked);
+		}
 
-        goals.add(lab.end);
-        boolean[][] newMarked = search(lab, dfsStartPoint, goals);
-        marked = addNewMarked(marked, newMarked);
+		goals.add(lab.end);
+		boolean[][] newMarked = search(lab, dfsStartPoint, goals);
+		marked = addNewMarked(marked, newMarked);
 
-        return marked;
-    }
+		Solution.visited = marked;
+	}
 
     public static boolean[][] search(Labyrinth lab, Point start, ArrayList<Point> goals) {
         boolean[][] marked = new boolean[lab.h][lab.w];
@@ -52,6 +53,7 @@ public class DFS {
                 System.out.print("Pot: " + curNode);
 
                 while (true) {
+                    Solution.foundPath[curNode.y][curNode.x]++;
                     curNode = from.get(curNode);
                     if (curNode != null)
                         System.out.print(" <-- " + curNode);

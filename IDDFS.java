@@ -14,7 +14,8 @@ public class IDDFS {
 		return list1;
 	}
 
-	public static boolean[][] fullSearch(Labyrinth lab) {
+	public static void fullSearch(Labyrinth lab) {
+		Solution.reset(lab.h, lab.w);
 		boolean[][] marked = new boolean[lab.h][lab.w];
 		ArrayList<Point> goals = lab.treasures;
 		dfsStartPoint = lab.start;
@@ -28,7 +29,7 @@ public class IDDFS {
 		boolean[][] newMarked = search(lab, dfsStartPoint, goals, lab.h*lab.w);
 		marked = addNewMarked(marked, newMarked);
 
-		return marked;
+		Solution.visited = marked;
 	}
 
 	public static boolean[][] search(Labyrinth lab, Point start, ArrayList<Point> goals, int depthLimit) {
@@ -54,6 +55,7 @@ public class IDDFS {
 					System.out.print("Pot: " + curNode);
 
 					while (true) {
+						Solution.foundPath[curNode.y][curNode.x]++;
 						curNode = from.get(curNode);
 						if (curNode != null)
 							System.out.print(" <-- " + curNode);

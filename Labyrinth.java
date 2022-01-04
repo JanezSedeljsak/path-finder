@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.util.*;
 
 public class Labyrinth extends JFrame {
-    static boolean[][] path;
     public int[][] data;
     public int h, w;
     public ArrayList<Point> treasures;
@@ -95,8 +94,13 @@ public class Labyrinth extends JFrame {
                 int cellY = cellHeight * row;
 
                 int cellType = data[row][column];
-                g.setColor(cellType == -1 ? Color.GRAY : ((path != null && path[row][column]) ? Color.RED : Color.WHITE));
+                g.setColor(cellType == -1 ? Color.GRAY : ((Solution.visited != null && Solution.visited[row][column]) ? Color.PINK : Color.WHITE));
                 g.fillRect(cellX, cellY, cellWidth, cellHeight);
+
+                if (Solution.foundPath[row][column] > 0) {
+                    g.setColor(Color.RED);
+                    g.fillOval(cellX, cellY, cellWidth, cellHeight);
+                }
 
                 if (cellType < -1) {
                     switch (cellType) {
