@@ -74,7 +74,6 @@ public class Labyrinth extends JFrame {
             StdDraw.clear(Color.GRAY);
             StdDraw.setXscale(0, this.w - 1);
             StdDraw.setYscale(this.h - 1, 0);
-            System.out.println(h + " " + w);
 
             for (int x = 0; x < w; x++) {
                 for (int y = 0; y < h; y++) {
