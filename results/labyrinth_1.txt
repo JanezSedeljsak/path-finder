@@ -1,0 +1,4 @@
+algorithm, visitedCount, pathLength, pathPrice
+BFS, 53, 44, 0
+DFS, 25, 23, 0
+IDDFS, 53, 23, 0
