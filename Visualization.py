@@ -16,20 +16,22 @@ def generateDataForAnalysis():
     return {
         "BFS": loadSingleDataset("BFS"),
         "DFS": loadSingleDataset("DFS"),
-        "IDDFS": loadSingleDataset("IDDFS")
+        "IDDFS": loadSingleDataset("IDDFS"),
+        "AStar": loadSingleDataset("AStar")
     }
 
 def pathLengthGraph(dataset):
     x, bfs, dfs, iddfs = [], [], [], []
     for i in range(9):
         x.append(i+1)
-        bfs.append(dataset["BFS"][i].visitedCount)
-        dfs.append(dataset["DFS"][i].visitedCount)
-        iddfs.append(dataset["IDDFS"][i].visitedCount)
+        bfs.append(dataset["BFS"][i].pathLength)
+        dfs.append(dataset["DFS"][i].pathLength)
+        iddfs.append(dataset["IDDFS"][i].pathLength)
 
     plt.plot(x, bfs, "-b", label="BFS")
     plt.plot(x, dfs, "-r", label="DFS")
     plt.plot(x, iddfs, "-g", label="IDDFS")
+    plt.plot(x, iddfs, "-y", label="AStar")
 
     plt.legend(loc="upper left")
     plt.xlabel('#Labirint')

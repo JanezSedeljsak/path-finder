@@ -68,6 +68,36 @@ public class Labyrinth extends JFrame {
         this.w = 0;
     }
 
+    public static int manhattanDistance(Point a, Point b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+
+    public static int getNearestTreasre(ArrayList<Point> treasures, Point start) {
+        int distance = Integer.MAX_VALUE;
+        int indexOfBest = -1;
+
+        for (int i = 0, len = treasures.size(); i < len; i++) {
+            int tmpDistance = manhattanDistance(start, treasures.get(i));
+            if (tmpDistance < distance) {
+                distance = tmpDistance;
+                indexOfBest = i;
+            }
+        }
+      
+        return indexOfBest;
+    }
+
+    public static int[][] hScoreGrid(Labyrinth lab, Point goal) {
+        int [][]hScore = new int[lab.h][lab.w];
+        for (int i = 0; i < hScore.length; i++) {
+            for (int j = 0, len = hScore[0].length; j < len; j++) {
+                hScore[i][j] = manhattanDistance(new Point(i, j), goal);
+            }
+        }
+
+        return hScore;
+    }
+
     public void drawBackgroundSTD() {
         if (isAnimated) {
             StdDraw.setCanvasSize(720, 640);
