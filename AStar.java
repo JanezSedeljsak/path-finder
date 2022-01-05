@@ -80,7 +80,6 @@ public class AStar {
             for (Point move : Point.moveOptions) {
                 Point nextNode = new Point(curNode.x + move.x, curNode.y + move.y);
                 if (lab.isValidMove(nextNode.x, nextNode.y) && !closed[nextNode.y][nextNode.x]) {
-                    Solution.visited[nextNode.y][nextNode.x] = true;
                     open.add(nextNode);
 
                     int dist = gScore[curNode.y][curNode.x] + lab.data[nextNode.y][nextNode.x];

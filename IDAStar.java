@@ -30,7 +30,6 @@ public class IDAStar {
             Point nextNode = new Point(curNode.x + move.x, curNode.y + move.y);
             if (searchLab.isValidMove(nextNode.x, nextNode.y) && !path.contains(nextNode)) {
                 path.add(0, nextNode);
-                Solution.visited[nextNode.y][nextNode.x] = true;
                 int res = search(gScore + searchLab.data[nextNode.y][nextNode.x], bound);
                 if (found) {
                     return res;

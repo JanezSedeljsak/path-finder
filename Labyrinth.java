@@ -133,7 +133,10 @@ public class Labyrinth extends JFrame {
     }
 
     public void drawRectSTD(int x, int y) {
-        if (isAnimated) {
+        boolean wasAlreadyVisited = Solution.visited[y][x];
+        Solution.visited[y][x] = true;
+
+        if (isAnimated && !wasAlreadyVisited) {
             if (Solution.foundPath[y][x] == 0) {
                 StdDraw.setPenColor(Color.PINK);
                 StdDraw.filledRectangle(x, y, 0.5, 0.5);

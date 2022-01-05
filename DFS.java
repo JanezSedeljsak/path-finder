@@ -57,7 +57,6 @@ public class DFS {
             for (Point move : Point.moveOptions) {
                 Point nextNode = new Point(curNode.x + move.x, curNode.y + move.y);
                 if (lab.isValidMove(nextNode.x, nextNode.y) && !marked[nextNode.y][nextNode.x]) {
-                    Solution.visited[nextNode.y][nextNode.x] = true;
                     marked[nextNode.y][nextNode.x] = true;
                     from.put(nextNode, curNode);
                     stack.push(nextNode);
