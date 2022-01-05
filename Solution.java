@@ -25,7 +25,7 @@ public class Solution {
             }
         }
 
-        return String.format("%s, %d, %d, %d, %.2f\n", algorithm, visitedCount, pathLength, pathPrice, Math.log(executionTime));
+        return String.format("%s, %d, %d, %d, %d\n", algorithm, visitedCount, pathLength, pathPrice, executionTime);
     }
 
     public static void generateCSV() throws Exception {
@@ -67,5 +67,9 @@ public class Solution {
             }
             writer.close();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        generateCSV();
     }
 }

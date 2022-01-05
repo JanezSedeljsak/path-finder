@@ -136,7 +136,7 @@ public class Labyrinth extends JFrame {
         boolean wasAlreadyVisited = Solution.visited[y][x];
         Solution.visited[y][x] = true;
 
-        if (isAnimated && !wasAlreadyVisited) {
+        if (isAnimated && (!wasAlreadyVisited || new Point(x,y).equals(start))) {
             if (Solution.foundPath[y][x] == 0) {
                 StdDraw.setPenColor(Color.PINK);
                 StdDraw.filledRectangle(x, y, 0.5, 0.5);

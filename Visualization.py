@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
+import math
 
 @dataclass
 class Stats:
@@ -7,16 +8,16 @@ class Stats:
     visitedCount: int = 0
     pathLength: int = 0
     pathPrice: int = 0
-    executionTime: float = 0
+    executionTime: int = 0
 
 def loadSingleDataset(algorithm):
     dataFromFile = [line[:-1].split(", ") for line in open(f"./results/{algorithm}.txt", 'r')][1:]
     return [Stats(
-        algorithm=row[0], 
+        algorithm=row[0],
         visitedCount=int(row[1]), 
         pathLength=int(row[2]), 
         pathPrice=int(row[3]), 
-        executionTime=float(row[4].replace(",", "."))
+        executionTime=int(row[4])
     ) for row in dataFromFile]
 
 def generateDataForAnalysis():
@@ -36,15 +37,16 @@ def getGraphOptionsByAttr(attr):
         "executionTime": ("Čas izvajanja", "Čas izvajanja algoritma na posameznem labirintu"),
     }[attr]
 
-def pathLengthGraph(dataset, attr="pathPrice"):
+def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
+    getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
     x, bfs, dfs, iddfs, astar, idastar = [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
-        bfs.append(getattr(dataset["BFS"][i], attr))
-        dfs.append(getattr(dataset["DFS"][i], attr))
-        iddfs.append(getattr(dataset["IDDFS"][i], attr))
-        astar.append(getattr(dataset["AStar"][i], attr))
-        idastar.append(getattr(dataset["IDAStar"][i], attr))
+        bfs.append(getAttr(dataset["BFS"][i], attr))
+        dfs.append(getAttr(dataset["DFS"][i], attr))
+        iddfs.append(getAttr(dataset["IDDFS"][i], attr))
+        astar.append(getAttr(dataset["AStar"][i], attr))
+        idastar.append(getAttr(dataset["IDAStar"][i], attr))
 
     yLabel, title = getGraphOptionsByAttr(attr)
     plt.plot(x, bfs, "-b", label="BFS")
@@ -61,7 +63,7 @@ def pathLengthGraph(dataset, attr="pathPrice"):
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="executionTime")
+    plot = pathLengthGraph(data, attr="executionTime", normalize=True)
     plot.show()
 
 
