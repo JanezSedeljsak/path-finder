@@ -29,7 +29,7 @@ public class Solution {
     }
 
     public static void generateCSV() throws Exception {
-        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "AStar", "IDAStar" };
+        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "GBFS", "AStar", "AStarWeighted", "IDAStar" };
 
         for (String algo : algos) {
             String outFile = String.format("./results/%s.txt", algo);
@@ -55,9 +55,17 @@ public class Solution {
                         IDDFS.fullSearch(lab);
                         writer.write(csvRow(lab, "IDDFS", System.nanoTime() - startTime));
                         break;
+                    case "GBFS":
+                        GBFS.fullSearch(lab);
+                        writer.write(csvRow(lab, "GBFS", System.nanoTime() - startTime));
+                        break;
                     case "AStar":
-                        AStar.fullSearch(lab);
+                        AStar.fullSearch(lab, false);
                         writer.write(csvRow(lab, "AStar", System.nanoTime() - startTime));
+                        break;
+                    case "AStarWeighted":
+                        AStar.fullSearch(lab, true);
+                        writer.write(csvRow(lab, "AStarWeighted", System.nanoTime() - startTime));
                         break;
                     case "IDAStar":
                         IDAStar.fullSearch(lab);

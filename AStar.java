@@ -3,11 +3,11 @@ import java.util.*;
 public class AStar {
     static Point aStarStartPoint;
 
-    public static void fullSearch(Labyrinth lab) {
+    public static void fullSearch(Labyrinth lab, boolean isWeighted) {
         Solution.reset(lab.h, lab.w);
 		ArrayList<Point> goals = lab.treasures;
         aStarStartPoint = lab.start;
-        float avgCost = lab.calcAvgCost();
+        float avgCost = isWeighted ? lab.calcAvgCost() : 1f;
         int[][] hCost;
 
 		while (goals.size() > 0) {

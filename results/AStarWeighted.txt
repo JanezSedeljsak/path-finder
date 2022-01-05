@@ -1,0 +1,10 @@
+algorithm, visitedCount, pathLength, pathPrice, executionTime
+AStarWeighted, 53, 36, 112, 67100
+AStarWeighted, 214, 105, 380, 229600
+AStarWeighted, 449, 273, 1052, 535600
+AStarWeighted, 1799, 684, 2688, 4074900
+AStarWeighted, 45, 43, 84, 134200
+AStarWeighted, 199, 77, 157, 193700
+AStarWeighted, 454, 249, 612, 532400
+AStarWeighted, 1799, 678, 1703, 1338500
+AStarWeighted, 250, 56, 200, 28829000400

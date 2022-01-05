@@ -26,7 +26,9 @@ def generateDataForAnalysis():
         "DFS": loadSingleDataset("DFS"),
         "IDDFS": loadSingleDataset("IDDFS"),
         "AStar": loadSingleDataset("AStar"),
-        "IDAStar": loadSingleDataset("IDAStar")
+        "AStarWeighted": loadSingleDataset("AStarWeighted"),
+        "IDAStar": loadSingleDataset("IDAStar"),
+        "GBFS": loadSingleDataset("GBFS")
     }
 
 def getGraphOptionsByAttr(attr):
@@ -39,21 +41,24 @@ def getGraphOptionsByAttr(attr):
 
 def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
     getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
-    x, bfs, dfs, iddfs, astar, idastar = [], [], [], [], [], []
+    x, bfs, dfs, iddfs, gbfs, astar, idastar = [], [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
         bfs.append(getAttr(dataset["BFS"][i], attr))
         dfs.append(getAttr(dataset["DFS"][i], attr))
         iddfs.append(getAttr(dataset["IDDFS"][i], attr))
+        gbfs.append(getAttr(dataset["GBFS"][i], attr))
         astar.append(getAttr(dataset["AStar"][i], attr))
         idastar.append(getAttr(dataset["IDAStar"][i], attr))
 
     yLabel, title = getGraphOptionsByAttr(attr)
-    plt.plot(x, bfs, "-b", label="BFS")
-    plt.plot(x, dfs, "-r", label="DFS")
-    plt.plot(x, iddfs, "-g", label="IDDFS")
-    plt.plot(x, astar, "-c", label="AStar")
-    plt.plot(x, idastar, "-m", label="IDAStar")
+    plt.plot(x, bfs, "red", label="BFS")
+    plt.plot(x, dfs, "blue", label="DFS")
+    plt.plot(x, iddfs, "green", label="IDDFS")
+    plt.plot(x, gbfs, "yellow", label="GBFS")
+    plt.plot(x, astar, "teal", label="AStar")
+    plt.plot(x, astar, "cyan", label="AStarWeighted")
+    plt.plot(x, idastar, "magenta", label="IDAStar")
 
     plt.legend(loc="upper left")
     plt.xlabel('#Labirint')
@@ -63,7 +68,7 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="pathPrice", normalize=False)
+    plot = pathLengthGraph(data, attr="executionTime", normalize=True)
     plot.show()
 
 
