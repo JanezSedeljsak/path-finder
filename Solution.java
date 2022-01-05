@@ -10,10 +10,10 @@ public class Solution {
     }
 
     public static String csvHeader() {
-        return "algorithm, visitedCount, pathLength, pathPrice\n";
+        return "algorithm, visitedCount, pathLength, pathPrice, executionTime\n";
     }
 
-    public static String csvRow(Labyrinth lab, String algorithm) {
+    public static String csvRow(Labyrinth lab, String algorithm, long executionTime) {
         int visitedCount = 0, pathLength = 0, pathPrice = 0;
         for (int i = 0; i < foundPath.length; i++) {
             for (int j = 0, len = foundPath[0].length; j < len; j++) {
@@ -25,7 +25,7 @@ public class Solution {
             }
         }
 
-        return String.format("%s, %d, %d, %d\n", algorithm, visitedCount, pathLength, pathPrice);
+        return String.format("%s, %d, %d, %d, %.2f\n", algorithm, visitedCount, pathLength, pathPrice, Math.log(executionTime));
     }
 
     public static void generateCSV() throws Exception {
@@ -41,26 +41,27 @@ public class Solution {
                 Labyrinth lab = new Labyrinth();
                 lab.loadDataFromFile(String.format("./labyrinths/labyrinth_%d.txt", i));
 
+                long startTime = System.nanoTime();
                 switch (algo) {
                     case "BFS":
                         BFS.fullSearch(lab);
-                        writer.write(csvRow(lab, "BFS"));
+                        writer.write(csvRow(lab, "BFS", System.nanoTime() - startTime));
                         break;
                     case "DFS":
                         DFS.fullSearch(lab);
-                        writer.write(csvRow(lab, "DFS"));
+                        writer.write(csvRow(lab, "DFS", System.nanoTime() - startTime));
                         break;
                     case "IDDFS":
                         IDDFS.fullSearch(lab);
-                        writer.write(csvRow(lab, "IDDFS"));
+                        writer.write(csvRow(lab, "IDDFS", System.nanoTime() - startTime));
                         break;
                     case "AStar":
                         AStar.fullSearch(lab);
-                        writer.write(csvRow(lab, "AStar"));
+                        writer.write(csvRow(lab, "AStar", System.nanoTime() - startTime));
                         break;
                     case "IDAStar":
                         IDAStar.fullSearch(lab);
-                        writer.write(csvRow(lab, "IDAStar"));
+                        writer.write(csvRow(lab, "IDAStar", System.nanoTime() - startTime));
                         break;
                 }
             }

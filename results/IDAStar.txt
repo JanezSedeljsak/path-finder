@@ -1,10 +1,10 @@
-algorithm, visitedCount, pathLength, pathPrice
-IDAStar, 53, 36, 112
-IDAStar, 214, 105, 380
-IDAStar, 449, 289, 1116
-IDAStar, 1799, 636, 2496
-IDAStar, 43, 43, 84
-IDAStar, 206, 77, 157
-IDAStar, 454, 249, 612
-IDAStar, 1799, 678, 1703
-IDAStar, 250, 56, 200
+algorithm, visitedCount, pathLength, pathPrice, executionTime
+IDAStar, 53, 36, 112, 14,54
+IDAStar, 214, 105, 380, 17,00
+IDAStar, 449, 289, 1116, 17,45
+IDAStar, 1799, 636, 2496, 19,25
+IDAStar, 43, 43, 84, 11,27
+IDAStar, 206, 77, 157, 15,05
+IDAStar, 454, 249, 612, 17,16
+IDAStar, 1799, 678, 1703, 18,85
+IDAStar, 250, 56, 200, 26,17

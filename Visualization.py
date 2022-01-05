@@ -7,10 +7,17 @@ class Stats:
     visitedCount: int = 0
     pathLength: int = 0
     pathPrice: int = 0
+    executionTime: float = 0
 
 def loadSingleDataset(algorithm):
     dataFromFile = [line[:-1].split(", ") for line in open(f"./results/{algorithm}.txt", 'r')][1:]
-    return [Stats(algorithm=row[0], visitedCount=int(row[1]), pathLength=int(row[2]), pathPrice=int(row[3])) for row in dataFromFile]
+    return [Stats(
+        algorithm=row[0], 
+        visitedCount=int(row[1]), 
+        pathLength=int(row[2]), 
+        pathPrice=int(row[3]), 
+        executionTime=float(row[4].replace(",", "."))
+    ) for row in dataFromFile]
 
 def generateDataForAnalysis():
     return {
@@ -26,6 +33,7 @@ def getGraphOptionsByAttr(attr):
         "visitedCount": ("Število obiskanih", "Število obiskanih vozlišč v labirintu"),
         "pathLength": ("Dolžina poti", "Dolžina najdene poti v labirintu"),
         "pathPrice": ("Cena poti", "Cena najdene poti v labirintu"),
+        "executionTime": ("Čas izvajanja", "Čas izvajanja algoritma na posameznem labirintu"),
     }[attr]
 
 def pathLengthGraph(dataset, attr="pathPrice"):
@@ -53,7 +61,7 @@ def pathLengthGraph(dataset, attr="pathPrice"):
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="pathLength")
+    plot = pathLengthGraph(data, attr="executionTime")
     plot.show()
 
 

@@ -1,10 +1,10 @@
-algorithm, visitedCount, pathLength, pathPrice
-BFS, 53, 44, 144
-BFS, 214, 113, 412
-BFS, 449, 289, 1116
-BFS, 1799, 636, 2496
-BFS, 47, 43, 84
-BFS, 206, 89, 201
-BFS, 454, 249, 612
-BFS, 1799, 630, 1560
-BFS, 250, 56, 200
+algorithm, visitedCount, pathLength, pathPrice, executionTime
+BFS, 53, 44, 144, 13,85
+BFS, 214, 113, 412, 14,07
+BFS, 449, 289, 1116, 14,63
+BFS, 1796, 636, 2496, 15,63
+BFS, 46, 43, 84, 11,92
+BFS, 206, 89, 201, 13,26
+BFS, 454, 249, 612, 13,58
+BFS, 1796, 630, 1560, 14,49
+BFS, 250, 56, 200, 11,98
