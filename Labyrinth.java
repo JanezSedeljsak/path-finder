@@ -87,11 +87,27 @@ public class Labyrinth extends JFrame {
         return indexOfBest;
     }
 
-    public static int[][] hScoreGrid(Labyrinth lab, Point goal) {
+    public float calcAvgCost() {
+        int sum = 0, count = 0;
+        for (int i = 0; i < h; i++) {
+            for (int j = 0, len = w; j < len; j++) {
+                if (data[i][j] > 0) {
+                    sum +=  data[i][j];
+                    count++;
+                }
+            }
+        }
+        
+        return sum/(float)count;
+    }
+
+    public static int[][] hScoreGrid(Labyrinth lab, Point goal, float avgCost) {
         int [][]hScore = new int[lab.h][lab.w];
+
         for (int i = 0; i < hScore.length; i++) {
             for (int j = 0, len = hScore[0].length; j < len; j++) {
-                hScore[i][j] = manhattanDistance(new Point(i, j), goal);
+                float weightedScore = manhattanDistance(new Point(i, j), goal) * avgCost;
+                hScore[i][j] = (int)weightedScore;
             }
         }
 

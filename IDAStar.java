@@ -82,16 +82,17 @@ public class IDAStar {
         Solution.reset(lab.h, lab.w);
         ArrayList<Point> goals = lab.treasures;
         iDAStarPoint = lab.start;
+        float avgCost = lab.calcAvgCost();
         int[][] hCost;
 
         while (goals.size() > 0) {
             int idx = Labyrinth.getNearestTreasre(goals, iDAStarPoint);
-            hCost = Labyrinth.hScoreGrid(lab, goals.get(idx));
+            hCost = Labyrinth.hScoreGrid(lab, goals.get(idx), 1.0f);
             idas.find(lab, iDAStarPoint, goals, hCost);
         }
 
         goals.add(lab.end);
-        hCost = Labyrinth.hScoreGrid(lab, lab.end);
+        hCost = Labyrinth.hScoreGrid(lab, lab.end, 1.0f);
         idas.find(lab, iDAStarPoint, goals, hCost);
     }
 }

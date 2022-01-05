@@ -7,16 +7,17 @@ public class AStar {
         Solution.reset(lab.h, lab.w);
 		ArrayList<Point> goals = lab.treasures;
         aStarStartPoint = lab.start;
+        float avgCost = lab.calcAvgCost();
         int[][] hCost;
 
 		while (goals.size() > 0) {
             int idx = Labyrinth.getNearestTreasre(goals, aStarStartPoint);
-            hCost = Labyrinth.hScoreGrid(lab, goals.get(idx));
+            hCost = Labyrinth.hScoreGrid(lab, goals.get(idx), avgCost);
 			search(lab, aStarStartPoint, goals, hCost);
 		}
 
 		goals.add(lab.end);
-        hCost = Labyrinth.hScoreGrid(lab, lab.end);
+        hCost = Labyrinth.hScoreGrid(lab, lab.end, avgCost);
 		search(lab, aStarStartPoint, goals, hCost);
 	}
 

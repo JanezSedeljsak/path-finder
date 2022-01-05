@@ -31,10 +31,10 @@ def generateDataForAnalysis():
 
 def getGraphOptionsByAttr(attr):
     return {
-        "visitedCount": ("Število obiskanih", "Število obiskanih vozlišč v labirintu"),
-        "pathLength": ("Dolžina poti", "Dolžina najdene poti v labirintu"),
+        "visitedCount": ("Število obiskanih (stevilo vozlišč)", "Število obiskanih vozlišč v labirintu"),
+        "pathLength": ("Dolžina poti (stevilo vozlišč)", "Dolžina najdene poti v labirintu"),
         "pathPrice": ("Cena poti", "Cena najdene poti v labirintu"),
-        "executionTime": ("Čas izvajanja", "Čas izvajanja algoritma na posameznem labirintu"),
+        "executionTime": ("Čas izvajanja (ns)", "Čas izvajanja algoritma na posameznem labirintu"),
     }[attr]
 
 def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
@@ -63,7 +63,7 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="executionTime", normalize=True)
+    plot = pathLengthGraph(data, attr="pathPrice", normalize=False)
     plot.show()
 
 
