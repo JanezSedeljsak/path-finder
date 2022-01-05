@@ -17,31 +17,43 @@ def generateDataForAnalysis():
         "BFS": loadSingleDataset("BFS"),
         "DFS": loadSingleDataset("DFS"),
         "IDDFS": loadSingleDataset("IDDFS"),
-        "AStar": loadSingleDataset("AStar")
+        "AStar": loadSingleDataset("AStar"),
+        "IDAStar": loadSingleDataset("IDAStar")
     }
 
-def pathLengthGraph(dataset):
-    x, bfs, dfs, iddfs = [], [], [], []
+def getGraphOptionsByAttr(attr):
+    return {
+        "visitedCount": ("Število obiskanih", "Število obiskanih vozlišč v labirintu"),
+        "pathLength": ("Dolžina poti", "Dolžina najdene poti v labirintu"),
+        "pathPrice": ("Cena poti", "Cena najdene poti v labirintu"),
+    }[attr]
+
+def pathLengthGraph(dataset, attr="pathPrice"):
+    x, bfs, dfs, iddfs, astar, idastar = [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
-        bfs.append(dataset["BFS"][i].pathLength)
-        dfs.append(dataset["DFS"][i].pathLength)
-        iddfs.append(dataset["IDDFS"][i].pathLength)
+        bfs.append(getattr(dataset["BFS"][i], attr))
+        dfs.append(getattr(dataset["DFS"][i], attr))
+        iddfs.append(getattr(dataset["IDDFS"][i], attr))
+        astar.append(getattr(dataset["AStar"][i], attr))
+        idastar.append(getattr(dataset["IDAStar"][i], attr))
 
+    yLabel, title = getGraphOptionsByAttr(attr)
     plt.plot(x, bfs, "-b", label="BFS")
     plt.plot(x, dfs, "-r", label="DFS")
     plt.plot(x, iddfs, "-g", label="IDDFS")
-    plt.plot(x, iddfs, "-y", label="AStar")
+    plt.plot(x, astar, "-c", label="AStar")
+    plt.plot(x, idastar, "-m", label="IDAStar")
 
     plt.legend(loc="upper left")
     plt.xlabel('#Labirint')
-    plt.ylabel('Dolzina poti')
-    plt.title('Dolzina poti skozi grafe')
+    plt.ylabel(yLabel)
+    plt.title(title)
     return plt
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data)
+    plot = pathLengthGraph(data, attr="pathLength")
     plot.show()
 
 

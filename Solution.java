@@ -29,12 +29,14 @@ public class Solution {
     }
 
     public static void generateCSV() throws Exception {
-        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "AStar" };
+        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "AStar", "IDAStar" };
+
         for (String algo : algos) {
             String outFile = String.format("./results/%s.txt", algo);
             PrintWriter writer = new PrintWriter(outFile, "UTF-8");
             writer.write(csvHeader());
 
+            System.out.printf("Started %s.................\n", algo);
             for (int i = 1; i <= 9; i++) {
                 Labyrinth lab = new Labyrinth();
                 lab.loadDataFromFile(String.format("./labyrinths/labyrinth_%d.txt", i));
@@ -56,11 +58,13 @@ public class Solution {
                         AStar.fullSearch(lab);
                         writer.write(csvRow(lab, "AStar"));
                         break;
+                    case "IDAStar":
+                        IDAStar.fullSearch(lab);
+                        writer.write(csvRow(lab, "IDAStar"));
+                        break;
                 }
-                
             }
             writer.close();
         }
     }
-
 }
