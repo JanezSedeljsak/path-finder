@@ -280,12 +280,18 @@ public class Labyrinth extends JFrame {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             getContentPane().setBackground(Color.WHITE);
         }
+
         this.repaint();
     }
 
     public void setAnimated(boolean isAnimated) {
         this.isAnimated = isAnimated;
         drawBackgroundSTD();
+    }
+
+    public void printStats(String algorithm) {
+        String out = Solution.printStats(this, algorithm);
+        System.out.println(out);
     }
 
     public String toString() {

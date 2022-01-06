@@ -10,6 +10,11 @@ public class SimulatedAnnealingDFS {
         Solution.reset(lab.h, lab.w);
 		ArrayList<Point> goals = lab.treasures;
 		dfsStartPoint = lab.start;
+        while (goals.size() > 0) {
+			search(lab, dfsStartPoint, goals);
+		}
+
+		goals.add(lab.end);
 		search(lab, dfsStartPoint, goals);
 	}
 
@@ -36,8 +41,9 @@ public class SimulatedAnnealingDFS {
                 // System.out.println("Resitev DFS v vozliscu " + curNode);
                 // System.out.print("Pot: " + curNode);
 
+                LinkedList<Point> path = new LinkedList<>();
                 while (true) {
-                    Solution.foundPath[curNode.y][curNode.x]++;
+                    path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         // System.out.print(" <-- " + curNode);
@@ -47,6 +53,7 @@ public class SimulatedAnnealingDFS {
                         break;
                 }
 
+                Solution.appendSolutionPath(path);
                 return;
             }
 

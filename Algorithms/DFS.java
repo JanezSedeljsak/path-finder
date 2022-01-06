@@ -41,9 +41,10 @@ public class DFS {
 
                 // System.out.println("Resitev DFS v vozliscu " + curNode);
                 // System.out.print("Pot: " + curNode);
-
+                
+                LinkedList<Point> path = new LinkedList<>();
                 while (true) {
-                    Solution.foundPath[curNode.y][curNode.x]++;
+                    path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         // System.out.print(" <-- " + curNode);
@@ -53,6 +54,7 @@ public class DFS {
                         break;
                 }
 
+                Solution.appendSolutionPath(path);
                 return;
             }
 

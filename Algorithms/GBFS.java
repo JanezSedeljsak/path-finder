@@ -55,8 +55,9 @@ public class GBFS {
                 gbfsStartPoint = curNode;
                 goals.remove(curNode);
 
+                LinkedList<Point> path = new LinkedList<>();
                 while (true) {
-                    Solution.foundPath[curNode.y][curNode.x]++;
+                    path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         lab.drawCircleSTD(curNode.x, curNode.y);
@@ -64,7 +65,8 @@ public class GBFS {
                         break;
                     }
                 }
-
+                
+                Solution.appendSolutionPath(path);
                 return;
             }
 

@@ -65,10 +65,11 @@ public class IDAStar {
             if (found) {
                 for (int i = 0; i < path.size(); i++) {
                     Point curNode = path.get(i);
-                    Solution.foundPath[curNode.y][curNode.x]++;
                     searchLab.drawCircleSTD(curNode.x, curNode.y);
                 }
                 
+                Collections.reverse(path);
+                Solution.appendSolutionPath(path);
                 break;
             }
 

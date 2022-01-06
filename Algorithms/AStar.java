@@ -43,7 +43,6 @@ public class AStar {
         fScore[start.y][start.x] = hCost[start.y][start.x];
         Solution.visited[start.y][start.x] = true;
         from.put(start, null);
-
         open.add(start);
 
         while (!open.isEmpty()) {
@@ -68,8 +67,9 @@ public class AStar {
                 aStarStartPoint = curNode;
                 goals.remove(curNode);
 
+                LinkedList<Point> path = new LinkedList<>();
                 while (true) {
-                    Solution.foundPath[curNode.y][curNode.x]++;
+                    path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         lab.drawCircleSTD(curNode.x, curNode.y);
@@ -78,6 +78,7 @@ public class AStar {
                     }
                 }
 
+                Solution.appendSolutionPath(path);
                 return;
             }
 

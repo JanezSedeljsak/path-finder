@@ -41,9 +41,10 @@ public class BFS {
 
                 // System.out.println("Resitev BFS v vozliscu " + curNode);
                 // System.out.print("Pot: " + curNode);
-
+                
+                LinkedList<Point> path = new LinkedList<>();
                 while (true) {
-                    Solution.foundPath[curNode.y][curNode.x]++;
+                    path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         // System.out.print(" <-- " + curNode);
@@ -53,6 +54,7 @@ public class BFS {
                         break;
                 }
 
+                Solution.appendSolutionPath(path);
                 return;
             }
 

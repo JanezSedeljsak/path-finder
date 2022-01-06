@@ -12,11 +12,11 @@ public class IDDFS {
 		dfsStartPoint = lab.start;
 
 		while (goals.size() > 0) {
-			search(lab, dfsStartPoint, goals, lab.h*lab.w);
+			search(lab, dfsStartPoint, goals, lab.h * lab.w);
 		}
 
 		goals.add(lab.end);
-		search(lab, dfsStartPoint, goals, lab.h*lab.w);
+		search(lab, dfsStartPoint, goals, lab.h * lab.w);
 	}
 
 	public static void search(Labyrinth lab, Point start, ArrayList<Point> goals, int depthLimit) {
@@ -43,17 +43,18 @@ public class IDDFS {
 					// System.out.println("Resitev DFS v vozliscu " + curNode);
 					// System.out.print("Pot: " + curNode);
 
+					LinkedList<Point> path = new LinkedList<>();
 					while (true) {
-						Solution.foundPath[curNode.y][curNode.x]++;
+						path.addFirst(curNode);
 						curNode = from.get(curNode);
 						if (curNode != null) {
 							// System.out.print(" <-- " + curNode);
 							lab.drawCircleSTD(curNode.x, curNode.y);
-						}
-						else
+						} else
 							break;
 					}
 
+					Solution.appendSolutionPath(path);
 					return;
 				}
 
