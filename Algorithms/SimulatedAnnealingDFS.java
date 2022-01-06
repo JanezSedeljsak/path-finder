@@ -7,7 +7,7 @@ import Core.*;
 public class SimulatedAnnealingDFS {
     static Point dfsStartPoint;
 
-    public static void fullSearch(Labyrinth lab, int generations) {
+    public static void fullSearch(Labyrinth lab) {
         Solution.reset(lab.h, lab.w);
         ArrayList<Point> goals = lab.treasures;
         dfsStartPoint = lab.start;

@@ -38,7 +38,8 @@ def generateDataForAnalysis():
         "AStar": loadSingleDataset("AStar"),
         "AStarWeighted": loadSingleDataset("AStarWeighted"),
         "IDAStar": loadSingleDataset("IDAStar"),
-        "GBFS": loadSingleDataset("GBFS")
+        "GBFS": loadSingleDataset("GBFS"),
+        "SADFS": loadSingleDataset("SADFS")
     }
 
 def getGraphOptionsByAttr(attr):
@@ -53,7 +54,7 @@ def getGraphOptionsByAttr(attr):
 
 def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
     getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
-    x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar = [], [], [], [], [], [], [], []
+    x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar, sadfs = [], [], [], [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
         bfs.append(getAttr(dataset["BFS"][i], attr))
@@ -63,15 +64,17 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
         astar.append(getAttr(dataset["AStar"][i], attr))
         astarw.append(getAttr(dataset["AStarWeighted"][i], attr))
         idastar.append(getAttr(dataset["IDAStar"][i], attr))
+        sadfs.append(getAttr(dataset["SADFS"][i], attr))
 
     yLabel, title = getGraphOptionsByAttr(attr)
     plt.plot(x, bfs, "red", label="BFS")
     plt.plot(x, dfs, "blue", label="DFS")
     plt.plot(x, iddfs, "green", label="IDDFS")
-    plt.plot(x, gbfs, "yellow", label="GBFS")
+    plt.plot(x, gbfs, "purple", label="GBFS")
     plt.plot(x, astar, "lime", label="AStar")
     plt.plot(x, astar, "cyan", label="AStarWeighted")
     plt.plot(x, idastar, "magenta", label="IDAStar")
+    plt.plot(x, sadfs, "orange", label="SADFS")
 
     plt.legend(loc="upper left")
     plt.xlabel('#Labirint')

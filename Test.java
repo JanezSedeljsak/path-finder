@@ -13,7 +13,7 @@ public class Test {
         lab.blockDeadEnds();
 
         // v iskalnem algoritmu se rešitev shrani v Solution razred
-        SimulatedAnnealingDFS.fullSearch(lab, 100);
+        SimulatedAnnealingDFS.fullSearch(lab);
 
         // če hočeš da ti izriše graf
         //lab.setDraw(true);
