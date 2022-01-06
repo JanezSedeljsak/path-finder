@@ -90,6 +90,37 @@ public class Labyrinth extends JFrame {
         return indexOfBest;
     }
 
+    public void blockDeadEnds() {
+        for (int i = 0; i < h; i++) {
+            for (int j = 0, len = w; j < len; j++) {
+                if (data[i][j] > 0) {
+                    recursiveDeadEndCheck(j, i);
+                }
+            }
+        }
+    }
+
+    public void recursiveDeadEndCheck(int x, int y) {
+        ArrayList<Point> openSpots = new ArrayList<>();
+        for (Point move: Point.moveOptions) {
+            Point nextNode = new Point(x + move.x, y + move.y);
+            if (isValidMove(nextNode.x, nextNode.y)) {
+                openSpots.add(nextNode);
+            }
+        }
+
+        if (openSpots.size() > 1) {
+            return;
+        }
+
+        data[y][x] = -1;
+        StdDraw.setPenColor(Color.DARK_GRAY);
+        StdDraw.filledRectangle(x, y, 0.5, 0.5);
+        for (Point nextNode: openSpots) {
+            recursiveDeadEndCheck(nextNode.x, nextNode.y);
+        }
+    }
+
     public float calcAvgCost() {
         int sum = 0, count = 0;
         for (int i = 0; i < h; i++) {

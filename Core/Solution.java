@@ -7,10 +7,12 @@ import Algorithms.*;
 public class Solution {
     public static boolean[][] visited;
     public static int[][] foundPath;
+    public static ArrayList<Point> directedPath; 
 
     public static void reset(int h, int w) {
         visited = new boolean[h][w];
         foundPath = new int[h][w];
+        directedPath = new ArrayList<>();
     }
 
     public static String csvHeader() {
