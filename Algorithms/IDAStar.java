@@ -1,4 +1,7 @@
+package Algorithms;
+
 import java.util.*;
+import Core.*;
 
 public class IDAStar {
     static Point iDAStarPoint;
@@ -82,7 +85,6 @@ public class IDAStar {
         Solution.reset(lab.h, lab.w);
         ArrayList<Point> goals = lab.treasures;
         iDAStarPoint = lab.start;
-        float avgCost = lab.calcAvgCost();
         int[][] hCost;
 
         while (goals.size() > 0) {

@@ -1,9 +1,12 @@
+package Core;
+
 import java.io.*;
-import java.util.Locale;
+import java.util.*;
+import Algorithms.*;
 
 public class Solution {
-    static boolean[][] visited;
-    static int[][] foundPath;
+    public static boolean[][] visited;
+    public static int[][] foundPath;
 
     public static void reset(int h, int w) {
         visited = new boolean[h][w];

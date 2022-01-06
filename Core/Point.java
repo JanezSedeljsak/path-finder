@@ -1,8 +1,10 @@
-public class Point {
-    int x, y;
-    static Point[] moveOptions = new Point[] { new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1) };
+package Core;
 
-    Point(int x, int y) {
+public class Point {
+    public int x, y;
+    public static Point[] moveOptions = new Point[] { new Point(1, 0), new Point(0, 1), new Point(-1, 0), new Point(0, -1) };
+
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }

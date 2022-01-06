@@ -1,7 +1,10 @@
+package Core;
+
 import java.awt.*;
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
+import Lib.StdDraw;
 
 public class Labyrinth extends JFrame {
     public int[][] data;

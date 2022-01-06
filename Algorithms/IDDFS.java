@@ -1,5 +1,7 @@
+package Algorithms;
 
 import java.util.*;
+import Core.*;
 
 public class IDDFS {
 	static Point dfsStartPoint;

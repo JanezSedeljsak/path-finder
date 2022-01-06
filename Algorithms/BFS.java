@@ -1,4 +1,7 @@
+package Algorithms;
+
 import java.util.*;
+import Core.*;
 
 public class BFS {
     static Point bfsStartPoint;

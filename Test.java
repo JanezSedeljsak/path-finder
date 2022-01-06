@@ -1,3 +1,6 @@
+import Algorithms.*;
+import Core.*;
+
 public class Test {
     public static void main(String[] args) throws Exception {
         Labyrinth lab = new Labyrinth();
@@ -7,7 +10,7 @@ public class Test {
         //lab.setAnimated(true);
 
         // v iskalnem algoritmu se rešitev shrani v Solution razred
-        DFS.fullSearch(lab);
+        BFS.fullSearch(lab);
 
         // če hočeš da ti izriše graf
         lab.setDraw(true);
