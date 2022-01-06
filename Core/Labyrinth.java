@@ -101,6 +101,7 @@ public class Labyrinth extends JFrame {
     }
 
     public void recursiveDeadEndCheck(int x, int y) {
+        if (data[y][x] < 0) return;
         ArrayList<Point> openSpots = new ArrayList<>();
         for (Point move: Point.moveOptions) {
             Point nextNode = new Point(x + move.x, y + move.y);

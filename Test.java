@@ -4,7 +4,7 @@ import Core.*;
 public class Test {
     public static void main(String[] args) throws Exception {
         Labyrinth lab = new Labyrinth();
-        lab.loadDataFromFile("./labyrinths/labyrinth_6.txt");
+        lab.loadDataFromFile("./labyrinths/labyrinth_7.txt");
 
         // če hočeš animacijo
         lab.setAnimated(true);
