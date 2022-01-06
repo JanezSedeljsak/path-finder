@@ -1,10 +1,10 @@
-algorithm, visitedCount, pathLength, pathPrice, executionTime
-AStar, 53, 36, 112, 682900
-AStar, 214, 105, 380, 2616600
-AStar, 449, 289, 1116, 2623800
-AStar, 1799, 636, 2496, 6322400
-AStar, 43, 43, 84, 103900
-AStar, 205, 77, 157, 492100
-AStar, 454, 249, 612, 1514000
-AStar, 1799, 678, 1703, 5179400
-AStar, 250, 56, 200, 17383343400
+algorithm, visitedCount, hallwayLength, pathLength, pathPrice, executionTime
+AStar, 48, 48, 36, 112, 695700
+AStar, 208, 208, 105, 380, 1842300
+AStar, 443, 443, 289, 1116, 3166400
+AStar, 1792, 1792, 636, 2496, 4743100
+AStar, 39, 45, 43, 84, 94100
+AStar, 201, 202, 77, 157, 288100
+AStar, 448, 448, 249, 612, 1282100
+AStar, 1792, 1792, 678, 1703, 4875100
+AStar, 246, 246, 56, 200, 17279585100

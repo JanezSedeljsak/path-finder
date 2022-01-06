@@ -6,18 +6,28 @@ import math
 class Stats:
     algorithm: str
     visitedCount: int = 0
+    hallwayLength: int = 0
     pathLength: int = 0
     pathPrice: int = 0
     executionTime: int = 0
+
+    visitedPercentage: float = .0
+    pathLengthBasedOnHallway: float = .0
+    pathPriceBasedOnHallway: float = .0
 
 def loadSingleDataset(algorithm):
     dataFromFile = [line[:-1].split(", ") for line in open(f"./results/{algorithm}.txt", 'r')][1:]
     return [Stats(
         algorithm=row[0],
         visitedCount=int(row[1]), 
-        pathLength=int(row[2]), 
-        pathPrice=int(row[3]), 
-        executionTime=int(row[4])
+        hallwayLength=int(row[2]),
+        pathLength=int(row[3]), 
+        pathPrice=int(row[4]),
+        executionTime=int(row[5]),
+
+        visitedPercentage=int(row[1]) / int(row[2]),
+        pathLengthBasedOnHallway=int(row[3]) / int(row[2]),
+        pathPriceBasedOnHallway=int(row[4]) / int(row[2])
     ) for row in dataFromFile]
 
 def generateDataForAnalysis():
@@ -33,7 +43,9 @@ def generateDataForAnalysis():
 
 def getGraphOptionsByAttr(attr):
     return {
-        "visitedCount": ("Število obiskanih (stevilo vozlišč)", "Število obiskanih vozlišč v labirintu"),
+        "visitedPercentage": ("Delež obiskanih vozlišč (%)", "Delež obiskanih vozlišč (hodnika) v labirintu"),
+        "pathLengthBasedOnHallway": ("Dolžina poti / Dolžina hodnika", "Dolžina najdene poti v razmerju z dolžino hodnika v labirintu"),
+        "pathPriceBasedOnHallway": ("Cena poti / Dolžina hodnika", "Cena poti v razmerju z dolžino hodnika v labirintu"),
         "pathLength": ("Dolžina poti (stevilo vozlišč)", "Dolžina najdene poti v labirintu"),
         "pathPrice": ("Cena poti", "Cena najdene poti v labirintu"),
         "executionTime": ("Čas izvajanja (ns)", "Čas izvajanja algoritma na posameznem labirintu"),
@@ -41,7 +53,7 @@ def getGraphOptionsByAttr(attr):
 
 def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
     getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
-    x, bfs, dfs, iddfs, gbfs, astar, idastar = [], [], [], [], [], [], []
+    x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar = [], [], [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
         bfs.append(getAttr(dataset["BFS"][i], attr))
@@ -49,6 +61,7 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
         iddfs.append(getAttr(dataset["IDDFS"][i], attr))
         gbfs.append(getAttr(dataset["GBFS"][i], attr))
         astar.append(getAttr(dataset["AStar"][i], attr))
+        astarw.append(getAttr(dataset["AStarWeighted"][i], attr))
         idastar.append(getAttr(dataset["IDAStar"][i], attr))
 
     yLabel, title = getGraphOptionsByAttr(attr)
@@ -56,7 +69,7 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
     plt.plot(x, dfs, "blue", label="DFS")
     plt.plot(x, iddfs, "green", label="IDDFS")
     plt.plot(x, gbfs, "yellow", label="GBFS")
-    plt.plot(x, astar, "teal", label="AStar")
+    plt.plot(x, astar, "lime", label="AStar")
     plt.plot(x, astar, "cyan", label="AStarWeighted")
     plt.plot(x, idastar, "magenta", label="IDAStar")
 
@@ -68,7 +81,7 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
 
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="executionTime", normalize=True)
+    plot = pathLengthGraph(data, attr="pathPriceBasedOnHallway", normalize=False)
     plot.show()
 
 

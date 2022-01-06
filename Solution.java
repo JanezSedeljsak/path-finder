@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Locale;
 
 public class Solution {
     static boolean[][] visited;
@@ -10,22 +11,24 @@ public class Solution {
     }
 
     public static String csvHeader() {
-        return "algorithm, visitedCount, pathLength, pathPrice, executionTime\n";
+        return "algorithm, visitedCount, hallwayLength, pathLength, pathPrice, executionTime\n";
     }
 
     public static String csvRow(Labyrinth lab, String algorithm, long executionTime) {
-        int visitedCount = 0, pathLength = 0, pathPrice = 0;
-        for (int i = 0; i < foundPath.length; i++) {
-            for (int j = 0, len = foundPath[0].length; j < len; j++) {
-                visitedCount += visited[i][j] ? 1 : 0;
+        int visitedCount = 0, pathLength = 0, pathPrice = 0, hallwayLength = 0;
+
+        for (int i = 0; i < lab.h; i++) {
+            for (int j = 0, len = lab.w; j < len; j++) {
                 pathLength += foundPath[i][j];
                 if (lab.data[i][j] > 0) {
                     pathPrice += foundPath[i][j] * lab.data[i][j];
+                    visitedCount += visited[i][j] ? 1 : 0;
+                    hallwayLength++;
                 }
             }
         }
 
-        return String.format("%s, %d, %d, %d, %d\n", algorithm, visitedCount, pathLength, pathPrice, executionTime);
+        return String.format(Locale.ENGLISH, "%s, %d, %d, %d, %d, %d\n", algorithm, visitedCount, hallwayLength, pathLength, pathPrice, executionTime);
     }
 
     public static void generateCSV() throws Exception {
