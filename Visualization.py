@@ -76,15 +76,37 @@ def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
     plt.plot(x, idastar, "magenta", label="IDAStar")
     plt.plot(x, sadfs, "orange", label="SADFS")
 
-    plt.legend(loc="upper left")
+    plt.legend(loc="lower left" if attr == 'visitedPercentage' else "upper left")
     plt.xlabel('#Labirint')
     plt.ylabel(yLabel)
     plt.title(title)
     return plt
 
+def drawTable(data, labNum):
+    rows = []
+    for data in data.values():
+        section = data[labNum-1]
+        rows.append([
+            section.algorithm, 
+            section.visitedCount, 
+            section.pathLength, 
+            section.pathPrice, 
+            section.executionTime
+        ])
+
+    fig, ax = plt.subplots()
+    fig.patch.set_visible(False)
+    ax.axis('off')
+
+    cols = ["algorithm", "visitedCount", "pathLength", "pathPrice", "executionTime"]
+    ax.table(cellText=rows, colLabels=cols, loc='center')
+
+    return plt
+
+
 def main():
     data = generateDataForAnalysis()
-    plot = pathLengthGraph(data, attr="pathPriceBasedOnHallway", normalize=False)
+    plot = drawTable(data, 3)
     plot.show()
 
 
