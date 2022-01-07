@@ -52,7 +52,7 @@ def getGraphOptionsByAttr(attr):
         "executionTime": ("Čas izvajanja (ns)", "Čas izvajanja algoritma na posameznem labirintu"),
     }[attr]
 
-def pathLengthGraph(dataset, attr="pathPrice", normalize=False):
+def drawGraph(dataset, attr="pathPrice", normalize=False):
     getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
     x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar, sadfs = [], [], [], [], [], [], [], [], []
     for i in range(9):
