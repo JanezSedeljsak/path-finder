@@ -116,8 +116,11 @@ public class Labyrinth extends JFrame {
         }
 
         data[y][x] = -1;
-        StdDraw.setPenColor(Color.DARK_GRAY);
-        StdDraw.filledRectangle(x, y, 0.5, 0.5);
+        if (isAnimated) {
+            StdDraw.setPenColor(Color.DARK_GRAY);
+            StdDraw.filledRectangle(x, y, 0.5, 0.5);
+            StdDraw.show();
+        }
         for (Point nextNode: openSpots) {
             recursiveDeadEndCheck(nextNode.x, nextNode.y);
         }

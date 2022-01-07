@@ -103,11 +103,20 @@ def drawTable(data, labNum):
 
     return plt
 
+def printTable(data, labNum):
+    print(f'{"algorithm": <15}{"visitedCount": <15}{"pathLength": <15}{"pathPrice": <15}{"executionTime": <15}')
+    for data in data.values():
+        section = data[labNum - 1]
+        print(f'{section.algorithm: <15}{section.visitedCount: <15}{section.pathLength: <15}{section.pathPrice: <15}{section.executionTime: <15}')
+
 
 def main():
     data = generateDataForAnalysis()
-    plot = drawTable(data, 3)
-    plot.show()
+    # plot = drawTable(data, 1)
+    # plot.show()
+
+    printTable(data, 9)
+
 
 
 if __name__ == '__main__':
