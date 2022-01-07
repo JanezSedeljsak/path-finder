@@ -89,7 +89,7 @@ public class IDAStar {
         int[][] hCost;
 
         while (goals.size() > 0) {
-            int idx = Labyrinth.getNearestTreasre(goals, iDAStarPoint);
+            int idx = Labyrinth.getNearestTreasure(goals, iDAStarPoint);
             hCost = Labyrinth.hScoreGrid(lab, goals.get(idx), 1f);
             idas.find(lab, iDAStarPoint, goals, hCost);
         }

@@ -13,7 +13,7 @@ public class GBFS {
         int[][] hCost;
 
         while (goals.size() > 0) {
-            int idx = Labyrinth.getNearestTreasre(goals, gbfsStartPoint);
+            int idx = Labyrinth.getNearestTreasure(goals, gbfsStartPoint);
             hCost = Labyrinth.hScoreGrid(lab, goals.get(idx), 1f);
             search(lab, gbfsStartPoint, goals, hCost);
         }

@@ -14,7 +14,7 @@ public class AStar {
         int[][] hCost;
 
 		while (goals.size() > 0) {
-            int idx = Labyrinth.getNearestTreasre(goals, aStarStartPoint);
+            int idx = Labyrinth.getNearestTreasure(goals, aStarStartPoint);
             hCost = Labyrinth.hScoreGrid(lab, goals.get(idx), avgCost);
 			search(lab, aStarStartPoint, goals, hCost);
 		}

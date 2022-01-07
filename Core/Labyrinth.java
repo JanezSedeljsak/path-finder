@@ -13,6 +13,7 @@ public class Labyrinth extends JFrame {
     public Point start, end;
     public boolean isDraw = false;
     public boolean isAnimated = false;
+    private int animationDelay = 10;
 
     public void loadDataFromFile(String fileName) {
         ArrayList<int[]> tmpData = new ArrayList<>();
@@ -75,7 +76,7 @@ public class Labyrinth extends JFrame {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    public static int getNearestTreasre(ArrayList<Point> treasures, Point start) {
+    public static int getNearestTreasure(ArrayList<Point> treasures, Point start) {
         int distance = Integer.MAX_VALUE;
         int indexOfBest = -1;
 
@@ -151,6 +152,7 @@ public class Labyrinth extends JFrame {
 
     public void drawBackgroundSTD() {
         if (isAnimated) {
+            StdDraw.enableDoubleBuffering();
             StdDraw.setCanvasSize(720, 640);
             StdDraw.clear(Color.GRAY);
             StdDraw.setXscale(0, this.w - 1);
@@ -180,6 +182,7 @@ public class Labyrinth extends JFrame {
                     }
                 }
             }
+            StdDraw.show();
         }
     }
 
@@ -206,6 +209,8 @@ public class Labyrinth extends JFrame {
                         StdDraw.filledCircle(x, y, 0.5);
                         break;
                 }
+                StdDraw.show();
+                StdDraw.pause(animationDelay);
             }
         }
     }
@@ -217,6 +222,8 @@ public class Labyrinth extends JFrame {
                 StdDraw.filledCircle(x, y, 0.5);
                 StdDraw.setPenColor(Color.BLACK);
                 StdDraw.text(x, y, (Solution.foundPath[y][x] + 1) + "");
+                StdDraw.show();
+                StdDraw.pause(animationDelay);
             }
         }
     }
