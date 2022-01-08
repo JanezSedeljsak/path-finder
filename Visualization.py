@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
+
 import math
 
 @dataclass
@@ -75,7 +76,7 @@ def drawGraph(dataset, attr="pathPrice", normalize=False):
     plt.plot(x, gbfs, "purple", label="GBFS")
     plt.plot(x, astar, "lime", label="AStar")
     plt.plot(x, astar, "cyan", label="AStarWeighted")
-    plt.plot(x, idastar, "magenta", label="IDAStar")
+    plt.plot(x, idastar, "mediumspringgreen", label="IDAStar")
     plt.plot(x, sadfs, "orange", label="SADFS")
     plt.plot(x, bfastar, "black", label="BF-AStar")
 
@@ -114,16 +115,17 @@ def printTable(data, labNum):
 
 
 def main():
+    plt.figure(figsize=(10, 6), dpi=90)
     data = generateDataForAnalysis()
-    plot = drawGraph(data, attr="pathPrice")
+    # plot = drawGraph(data, attr="pathPrice")
     # plot = drawGraph(data, attr="pathPriceBasedOnHallway")
     # plot = drawGraph(data, attr="pathLength")
     # plot = drawGraph(data, attr="pathLengthBasedOnHallway")
     # plot = drawGraph(data, attr="visitedPercentage")
-    # plot = drawGraph(data, attr="executionTime", normalize=True)
+    plot = drawGraph(data, attr="executionTime", normalize=True)
     plot.show()
 
-    printTable(data, 9)
+    #printTable(data, 9)
 
 
 
