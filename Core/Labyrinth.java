@@ -145,7 +145,7 @@ public class Labyrinth extends JFrame {
 
         for (int i = 0; i < hScore.length; i++) {
             for (int j = 0, len = hScore[0].length; j < len; j++) {
-                float weightedScore = manhattanDistance(new Point(i, j), goal) * avgCost;
+                float weightedScore = manhattanDistance(new Point(j, i), goal) * avgCost;
                 hScore[i][j] = (int)weightedScore;
             }
         }
