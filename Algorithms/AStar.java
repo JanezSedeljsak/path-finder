@@ -2,9 +2,60 @@ package Algorithms;
 
 import java.util.*;
 import Core.*;
+import Lib.Tuple;
 
 public class AStar {
     static Point aStarStartPoint;
+    static boolean bruteForce = false;
+
+    public static void bruteForceSearch(Labyrinth lab) {
+        LinkedList<Point> best = null;
+        int bestPrice = Integer.MAX_VALUE;
+        float avgCost = lab.calcAvgCost();
+        int[][] hCost;
+
+        Solution.reset(lab.h, lab.w);
+        bruteForce = true;
+
+        ArrayList<ArrayList<Point>> permutations = Labyrinth.permutations(lab.treasures);
+        for (ArrayList<Point> permutation: permutations) {
+            LinkedList<Point> tmpPath = new LinkedList<>();
+            aStarStartPoint = lab.start;
+            int tmpPrice = 0;
+
+            while (permutation.size() > 0) {
+                hCost = Labyrinth.hScoreGrid(lab, permutation.get(0), avgCost);
+                Tuple<Integer, LinkedList<Point>> response = search(lab, aStarStartPoint, permutation, hCost);
+    
+                tmpPrice += response.first;
+                for (Point point: response.second) {
+                    if (tmpPath.size() == 0 || !point.equals(tmpPath.getLast())) {
+                        tmpPath.add(point);
+                    }
+                }
+            }
+    
+            permutation.add(lab.end);
+            hCost = Labyrinth.hScoreGrid(lab, lab.end, avgCost);
+            Tuple<Integer, LinkedList<Point>> response = search(lab, aStarStartPoint, permutation, hCost);
+            tmpPrice += response.first;
+            for (Point point: response.second) {
+                if (tmpPath.size() == 0 || !point.equals(tmpPath.getLast())) {
+                    tmpPath.add(point);
+                }
+            }
+    
+            if (tmpPrice < bestPrice) {
+                bestPrice = tmpPrice;
+                best = tmpPath;
+            }
+        }
+
+        Solution.appendSolutionPath(best);
+        for (Point p: best) {
+            lab.drawCircleSTD(p.x, p.y);
+        }
+	}
 
     public static void fullSearch(Labyrinth lab, boolean isWeighted) {
         Solution.reset(lab.h, lab.w);
@@ -24,7 +75,7 @@ public class AStar {
 		search(lab, aStarStartPoint, goals, hCost);
 	}
 
-    public static void search(Labyrinth lab, Point start, ArrayList<Point> goals, int[][] hCost) {
+    public static Tuple<Integer, LinkedList<Point>> search(Labyrinth lab, Point start, ArrayList<Point> goals, int[][] hCost) {
         LinkedList<Point> open = new LinkedList<>();
         boolean[][] closed = new boolean[lab.h][lab.w];
         HashMap<Point, Point> from = new HashMap<>();
@@ -68,18 +119,27 @@ public class AStar {
                 goals.remove(curNode);
 
                 LinkedList<Point> path = new LinkedList<>();
+                int price = 0;
+
                 while (true) {
                     path.addFirst(curNode);
+                    price += lab.data[curNode.y][curNode.x] > 0 ? lab.data[curNode.y][curNode.x] : 0;
+
                     curNode = from.get(curNode);
                     if (curNode != null) {
-                        lab.drawCircleSTD(curNode.x, curNode.y);
+                        if (!bruteForce) {
+                            lab.drawCircleSTD(curNode.x, curNode.y);
+                        }
                     } else {
                         break;                        
                     }
                 }
 
-                Solution.appendSolutionPath(path);
-                return;
+                if (!bruteForce) {
+                    Solution.appendSolutionPath(path);
+                }
+    
+                return new Tuple<>(price, path);
             }
 
             for (Point move : Point.moveOptions) {
@@ -96,5 +156,7 @@ public class AStar {
                 }
             }
         }
+
+        return null;
     }
 }

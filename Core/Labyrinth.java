@@ -153,6 +153,31 @@ public class Labyrinth extends JFrame {
         return hScore;
     }
 
+    public static ArrayList<ArrayList<Point>> permutations(ArrayList<Point> nums) {
+        ArrayList<ArrayList<Point>> results = new ArrayList<>();
+        if (nums == null || nums.size() == 0) {
+            return results;
+        }
+        ArrayList<Point> result = new ArrayList<>();
+        dfs(nums, results, result);
+        return results;
+    }
+
+    private static void dfs(ArrayList<Point> nums, ArrayList<ArrayList<Point>> results, ArrayList<Point> result) {
+        if (nums.size() == result.size()) {
+            ArrayList<Point> temp = new ArrayList<>(result);
+            results.add(temp);
+        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (!result.contains(nums.get(i))) {
+                result.add(nums.get(i));
+                dfs(nums, results, result);
+                result.remove(result.size() - 1);
+            }
+        }
+    }
+
     public void drawBackgroundSTD() {
         if (isAnimated) {
             StdDraw.enableDoubleBuffering();

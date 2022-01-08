@@ -77,7 +77,7 @@ public class Solution {
     }
 
     public static void generateCSV() throws Exception {
-        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "GBFS", "AStar", "AStarWeighted", "SADFS", "IDAStar" };
+        String[] algos = new String[] { "BFS", "DFS", "IDDFS", "GBFS", "AStar", "AStarWeighted", "SADFS", "IDAStar", "BFAStar" };
 
         for (String algo : algos) {
             String outFile = String.format("./results/%s.txt", algo);
@@ -123,8 +123,12 @@ public class Solution {
                         SimulatedAnnealingDFS.fullSearch(lab);
                         writer.write(csvRow(lab, "SADFS", System.nanoTime() - startTime));
                         break;
+                    case "BFAStar":
+                        AStar.bruteForceSearch(lab);
+                        writer.write(csvRow(lab, "BFAStar", System.nanoTime() - startTime));
                 }
             }
+            
             writer.close();
         }
     }

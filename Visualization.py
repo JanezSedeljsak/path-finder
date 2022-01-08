@@ -39,7 +39,8 @@ def generateDataForAnalysis():
         "AStarWeighted": loadSingleDataset("AStarWeighted"),
         "IDAStar": loadSingleDataset("IDAStar"),
         "GBFS": loadSingleDataset("GBFS"),
-        "SADFS": loadSingleDataset("SADFS")
+        "SADFS": loadSingleDataset("SADFS"),
+        "BFAStar": loadSingleDataset("BFAStar")
     }
 
 def getGraphOptionsByAttr(attr):
@@ -54,7 +55,7 @@ def getGraphOptionsByAttr(attr):
 
 def drawGraph(dataset, attr="pathPrice", normalize=False):
     getAttr = lambda obj, atr: getattr(obj, atr) if not normalize else math.log(getattr(obj, atr))
-    x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar, sadfs = [], [], [], [], [], [], [], [], []
+    x, bfs, dfs, iddfs, gbfs, astar, astarw, idastar, sadfs, bfastar = [], [], [], [], [], [], [], [], [], []
     for i in range(9):
         x.append(i+1)
         bfs.append(getAttr(dataset["BFS"][i], attr))
@@ -65,6 +66,7 @@ def drawGraph(dataset, attr="pathPrice", normalize=False):
         astarw.append(getAttr(dataset["AStarWeighted"][i], attr))
         idastar.append(getAttr(dataset["IDAStar"][i], attr))
         sadfs.append(getAttr(dataset["SADFS"][i], attr))
+        bfastar.append(getAttr(dataset["BFAStar"][i], attr))
 
     yLabel, title = getGraphOptionsByAttr(attr)
     plt.plot(x, bfs, "red", label="BFS")
@@ -75,6 +77,7 @@ def drawGraph(dataset, attr="pathPrice", normalize=False):
     plt.plot(x, astar, "cyan", label="AStarWeighted")
     plt.plot(x, idastar, "magenta", label="IDAStar")
     plt.plot(x, sadfs, "orange", label="SADFS")
+    plt.plot(x, bfastar, "black", label="BF-AStar")
 
     plt.legend(loc="lower left" if attr == 'visitedPercentage' else "upper left")
     plt.xlabel('#Labirint')
@@ -112,8 +115,13 @@ def printTable(data, labNum):
 
 def main():
     data = generateDataForAnalysis()
-    # plot = drawTable(data, 1)
-    # plot.show()
+    plot = drawGraph(data, attr="pathPrice")
+    # plot = drawGraph(data, attr="pathPriceBasedOnHallway")
+    # plot = drawGraph(data, attr="pathLength")
+    # plot = drawGraph(data, attr="pathLengthBasedOnHallway")
+    # plot = drawGraph(data, attr="visitedPercentage")
+    # plot = drawGraph(data, attr="executionTime", normalize=True)
+    plot.show()
 
     printTable(data, 9)
 
