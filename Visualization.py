@@ -75,7 +75,7 @@ def drawGraph(dataset, attr="pathPrice", normalize=False):
     plt.plot(x, iddfs, "green", label="IDDFS")
     plt.plot(x, gbfs, "purple", label="GBFS")
     plt.plot(x, astar, "lime", label="AStar")
-    plt.plot(x, astar, "cyan", label="AStarWeighted")
+    plt.plot(x, astarw, "cyan", label="AStarWeighted")
     plt.plot(x, idastar, "mediumspringgreen", label="IDAStar")
     plt.plot(x, sadfs, "orange", label="SADFS")
     plt.plot(x, bfastar, "black", label="BF-AStar")

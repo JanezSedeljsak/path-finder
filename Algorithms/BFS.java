@@ -29,8 +29,6 @@ public class BFS {
         marked[start.y][start.x] = true;
         queue.add(start);
 
-        // System.out.println("Dajem v vrsto vozlisce " + start);
-
         while (!queue.isEmpty()) {
             Point curNode = queue.peek();
             lab.drawRectSTD(curNode.x, curNode.y);
@@ -39,15 +37,11 @@ public class BFS {
                 bfsStartPoint = curNode;
                 goals.remove(curNode);
 
-                // System.out.println("Resitev BFS v vozliscu " + curNode);
-                // System.out.print("Pot: " + curNode);
-                
                 LinkedList<Point> path = new LinkedList<>();
                 while (true) {
                     path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
-                        // System.out.print(" <-- " + curNode);
                         lab.drawCircleSTD(curNode.x, curNode.y);
                     }
                     else
@@ -65,8 +59,6 @@ public class BFS {
                     marked[nextNode.y][nextNode.x] = true;
                     from.put(nextNode, curNode);
                     queue.add(nextNode);
-
-                    // System.out.println("Dajem v vrsto vozlisce " + nextNode);
                     found = true;
                     break;
                 }
@@ -74,7 +66,6 @@ public class BFS {
 
             if (!found) {
                 queue.remove();
-                // System.out.println("Odstranjujem iz vrste vozlisce " + curNode);
             }
         }
 

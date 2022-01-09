@@ -30,8 +30,6 @@ public class IDDFS {
 			Solution.visited[start.y][start.x] = true;
 			stack.push(start);
 
-			// System.out.println("Polagam na sklad vozlisce " + start);
-
 			while (!stack.isEmpty()) {
 				Point curNode = stack.peek();
 				lab.drawRectSTD(curNode.x, curNode.y);
@@ -40,15 +38,11 @@ public class IDDFS {
 					dfsStartPoint = curNode;
 					goals.remove(curNode);
 
-					// System.out.println("Resitev DFS v vozliscu " + curNode);
-					// System.out.print("Pot: " + curNode);
-
 					LinkedList<Point> path = new LinkedList<>();
 					while (true) {
 						path.addFirst(curNode);
 						curNode = from.get(curNode);
 						if (curNode != null) {
-							// System.out.print(" <-- " + curNode);
 							lab.drawCircleSTD(curNode.x, curNode.y);
 						} else
 							break;
@@ -66,8 +60,6 @@ public class IDDFS {
 							marked[nextNode.y][nextNode.x] = true;
 							from.put(nextNode, curNode);
 							stack.push(nextNode);
-
-							// System.out.println("Polagam na sklad vozlisce " + nextNode);
 							found = true;
 							break;
 						}
@@ -76,7 +68,6 @@ public class IDDFS {
 
 				if (!found) {
 					stack.pop();
-					// System.out.println("Odstranjum s sklada vozlisce " + curNode);
 				}
 			}
 		}
