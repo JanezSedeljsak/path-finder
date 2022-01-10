@@ -58,7 +58,7 @@ public class SimulatedAnnealingDFS {
         goals.remove(goal);
         Solution.appendSolutionPath(best.second);
         for (Point p: best.second) {
-            lab.drawCircleSTD(p.x, p.y);
+            lab.drawCircleSTD(p.x, p.y, false);
         }
         
     }

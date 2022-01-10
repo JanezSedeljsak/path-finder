@@ -53,7 +53,7 @@ public class AStar {
 
         Solution.appendSolutionPath(best);
         for (Point p: best) {
-            lab.drawCircleSTD(p.x, p.y);
+            lab.drawCircleSTD(p.x, p.y, false);
         }
 	}
 
@@ -128,7 +128,7 @@ public class AStar {
                     curNode = from.get(curNode);
                     if (curNode != null) {
                         if (!bruteForce) {
-                            lab.drawCircleSTD(curNode.x, curNode.y);
+                            lab.drawCircleSTD(curNode.x, curNode.y, true);
                         }
                     } else {
                         break;                        

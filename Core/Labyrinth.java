@@ -243,13 +243,13 @@ public class Labyrinth extends JFrame {
         }
     }
 
-    public void drawCircleSTD(int x, int y) {
+    public void drawCircleSTD(int x, int y, boolean addOne) {
         if (isAnimated) {
             if (this.data[y][x] > 0) {
                 StdDraw.setPenColor(Color.RED);
                 StdDraw.filledCircle(x, y, 0.5);
                 StdDraw.setPenColor(Color.BLACK);
-                StdDraw.text(x, y, (Solution.foundPath[y][x] + 1) + "");
+                StdDraw.text(x, y, (Solution.foundPath[y][x] + (addOne ? 1 : 0)) + "");
                 StdDraw.show();
                 StdDraw.pause(animationDelay);
             }

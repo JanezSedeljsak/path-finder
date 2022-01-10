@@ -42,7 +42,7 @@ public class BFS {
                     path.addFirst(curNode);
                     curNode = from.get(curNode);
                     if (curNode != null) {
-                        lab.drawCircleSTD(curNode.x, curNode.y);
+                        lab.drawCircleSTD(curNode.x, curNode.y, true);
                     }
                     else
                         break;
