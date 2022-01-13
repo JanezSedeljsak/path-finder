@@ -5,8 +5,8 @@
 A visual representation of labyrinth solving algorithms using common traversal algorithms such as BFS, DFS, A*.
 Plus there are some basic artificial intelligence patterns like generational learning.
 
-The project itself also provides real time solving steps implemented on the GUI. The labyrinth
-consists of a starting and ending Node + treasures scattered across the field (the "AI" has to find them in order to correctly solve finish the maze).
+The project itself also provides real time solving steps implemented on the drawer. The labyrinth
+consists of a starting and ending Node + treasures scattered across the field (the "AI" has to find them in order to correctly finish the maze).
 
 ![No image](https://github.com/JanezSedeljsak/path-finder/blob/main/docs/banner.png)
 
